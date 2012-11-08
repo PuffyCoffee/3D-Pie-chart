@@ -130,8 +130,10 @@ Raphael.fn.pie = function(args) {
 			shape.hover(function() {
 				shape.node.style.cursor = "pointer";
 				showTooltip(i);
+				var smx = (angles[i]>=Math.PI)?-(tset[i].x-cx):(tset[i].x-cx),
+					smy = (angles[i]>=Math.PI)?-(tset[i].y-cy):(tset[i].y-cy);
 				all_set[i].animate({
-					transform: "t"+(tset[i].x-cx)+","+(tset[i].y-cy)
+					transform: "t"+smx+","+smy
 				}, 300);
 				if (navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
 					setTimeout(function() {

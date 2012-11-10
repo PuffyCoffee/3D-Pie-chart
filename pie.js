@@ -2,12 +2,12 @@
  * 3D Pie chart
  * @author Peng Zhang 2012
  */
-Raphael.fn.pie = function(args) {
+Raphael.fn.pie = function(args) {	
 	var values = args.values;	
 	var colors = ["#51ff00", "#ff0011", "#faf600", "#0079fa", "#fa8500"];
 	var tooltips = ["January - 87", "Feburary - 136", "March - 77", "April - 120",
 					"May - 34"];
-	var percentages = [];
+	var percentages = [], isDoughnut = true, doughnutSize = 2.5;
 	var sum = 0;
 	for (var i = 0; i < values.length; i += 1)  {
 		sum += values[i];		
@@ -15,27 +15,54 @@ Raphael.fn.pie = function(args) {
 	for (var j = 0; j < values.length; j += 1) {
 		percentages.push(((values[j]/sum)*100).toFixed(2)+"%");
 	}
-	var paper = this;	
+	var paper = this;
 	var r1 = 180, r2 = 150, 
 		cx = paper.width/2, cy = paper.height/2,
 		titleX = cx, titleY = paper.height/13;
-	var title = paper.text(titleX, titleY, "First season GDP").attr({
+	var title = paper.text(titleX, titleY, "Traffic Flow").attr({
 		'font-size' : 20
 	});
 	var dsize = 20;
 	var nos = values.length;
 	if (nos == 1) {
-		var e = paper.ellipse(cx, cy, r1, r2).attr({
-			fill: "#51ff00",
-			stroke: "#999",
-			opacity: .8
-		});
-		var e_ = paper.ellipse(cx, cy+17, r1, r2).attr({
-			fill: "#51ff00",
-			stroke: "#999"
-		}).toBack();
+		if (isDoughnut) {
+			var e_ = paper.ellipse(cx, cy+17, r1, r2).attr({
+				fill: colors[0],
+				stroke: "#999"
+			});
+			var e = paper.ellipse(cx, cy, r1, r2).attr({
+				fill: colors[0],
+				stroke: "#999",
+				opacity: .8
+			});
+			var c = paper.ellipse(cx, cy, r1/doughnutSize, r2/doughnutSize).attr({				
+				stroke: "#999",
+				fill: "#fff"
+			});
+			var arcTop = paper.path("M"+(cx+r1/doughnutSize)+","+(cy+17)+
+						 "A"+r1/doughnutSize+","+r2/doughnutSize+",0,1,0,"+
+						 (cx-r1/doughnutSize)+","+(cy+17)+
+						 "L"+(cx-r1/doughnutSize)+","+cy+
+						 "A"+r1/doughnutSize+","+r2/doughnutSize+",0,0,1,"+
+						 (cx+r1/doughnutSize)+","+cy+"z").attr({stroke: "#999", fill: colors[0]});
+			var arcBot = paper.path("M"+(cx+r1/doughnutSize)+","+(cy+17)+
+						 "A"+r1/doughnutSize+","+r2/doughnutSize+",0,1,1,"+
+						 (cx-r1/doughnutSize)+","+(cy+17)).attr({stroke: "#ccc"});
+			
+		} else {
+			var e = paper.ellipse(cx, cy, r1, r2).attr({
+				fill: colors[0],
+				stroke: "#999",
+				opacity: .8
+			});
+			var e_ = paper.ellipse(cx, cy+17, r1, r2).attr({
+				fill: colors[0],
+				stroke: "#999"
+			}).toBack();
+		}		
 	} else {	
 		var x = cx + r1, y = cy, preAngle = 0;
+		var ix = cx + r1/doughnutSize, iy = cy;
 		var all_set = [];
 		var topSet = paper.set();
 		var angles = [], tset = [], ttset = [];
@@ -53,12 +80,15 @@ Raphael.fn.pie = function(args) {
 		for (var i = 0; i < nos; i += 1) {		
 			var slice = paper.set();			
 			var startX = x, startY = y;
+			var iStartX = ix, iStartY = iy;
 			var ratio = values[i]/sum;		
 			var angle = 2*ratio*Math.PI, largeArc = 0;
 			angles.push(angle);
 			if (angle > Math.PI)	largeArc = 1;
 			x = cx + r1*Math.cos(angle+preAngle);
-			y = cy + r2*Math.sin(angle+preAngle);		
+			y = cy + r2*Math.sin(angle+preAngle);
+			ix = cx + r1/doughnutSize*Math.cos(angle+preAngle);
+			iy = cy + r2/doughnutSize*Math.sin(angle+preAngle);			
 			var centerX = (startX+x)/2, centerY = (startY+y)/2;
 			var centerLine = paper.path("M"+cx+","+cy+"L"+centerX+","+centerY).attr({
 				stroke: "none"
@@ -67,34 +97,65 @@ Raphael.fn.pie = function(args) {
 			tset.push(coord);
 			var ttx = cx + (r1+45)*Math.cos(angle/2+preAngle),
 				tty = cy + (r2+45)*Math.sin(angle/2+preAngle);
-			ttset.push({x: ttx, y: tty});		
-			var side3 = paper.path("M"+startX+","+startY),
-				side2 = paper.path("M"+cx+","+cy),
-				side1 = paper.path("M"+cx+","+cy),
-				topside = paper.path("M"+x+","+y);		
-			var side3 = paper.path("M"+startX+","+startY+
-				"A"+r1+","+r2+",0,"+largeArc+",1,"+x+","+y+
-				"L"+x+","+(y+dsize)+
-				"A"+r1+","+r2+",0,"+largeArc+",0,"+startX+","+(startY+dsize)+"z");
-			var side2 = paper.path("M"+cx+","+cy+
+			ttset.push({x: ttx, y: tty});
+			if (isDoughnut) {
+				var side4 = paper.path("M"+iStartX+","+iStartY),
+					side3 = paper.path("M"+startX+","+startY),
+					side2 = paper.path("M"+cx+","+cy),
+					side1 = paper.path("M"+cx+","+cy),
+					topside = paper.path("M"+x+","+y);
+				side4 = paper.path("M"+iStartX+","+iStartY+
+						"A"+r1/doughnutSize+","+r2/doughnutSize+",0,"+largeArc+",1,"+ix+","+iy+
+						"L"+ix+","+(iy+dsize)+
+						"A"+r1/doughnutSize+","+r2/doughnutSize+",0,"+largeArc+",0,"+iStartX+","+(iStartY+dsize)+"z");
+				side3 = paper.path("M"+startX+","+startY+
+						"A"+r1+","+r2+",0,"+largeArc+",1,"+x+","+y+
+						"L"+x+","+(y+dsize)+
+						"A"+r1+","+r2+",0,"+largeArc+",0,"+startX+","+(startY+dsize)+"z");
+				side2 = paper.path("M"+ix+","+iy+
+					   "L"+ix+","+(iy+dsize)+
+					   "L"+x+","+(y+dsize)+
+					   "L"+x+","+y+"z");
+				side1 = paper.path("M"+iStartX+","+iStartY+
+					   "L"+iStartX+","+(iStartY+dsize)+
+					   "L"+startX+","+(startY+dsize)+
+					   "L"+startX+","+startY+"z");
+				topside = paper.path("M"+x+","+y+
+						"A"+r1+","+r2+",0,"+largeArc+",0,"+startX+","+startY+
+						"L"+iStartX+","+iStartY+
+						"A"+r1/doughnutSize+","+r2/doughnutSize+",0,"+largeArc+",1,"+ix+","+iy+
+						"z");
+				slice.push(side1, side2, side3, side4, topside);
+			} else {
+				var side3 = paper.path("M"+startX+","+startY),
+					side2 = paper.path("M"+cx+","+cy),
+					side1 = paper.path("M"+cx+","+cy),
+					topside = paper.path("M"+x+","+y);		
+				side3 = paper.path("M"+startX+","+startY+
+						"A"+r1+","+r2+",0,"+largeArc+",1,"+x+","+y+
+						"L"+x+","+(y+dsize)+
+						"A"+r1+","+r2+",0,"+largeArc+",0,"+startX+","+(startY+dsize)+"z");
+				side2 = paper.path("M"+cx+","+cy+
 					   "L"+cx+","+(cy+dsize)+
 					   "L"+x+","+(y+dsize)+
-					   "L"+x+","+y);
-			var side1 = paper.path("M"+cx+","+cy+
+					   "L"+x+","+y+"z");
+				side1 = paper.path("M"+cx+","+cy+
 					   "L"+cx+","+(cy+dsize)+
 					   "L"+startX+","+(startY+dsize)+
-					   "L"+startX+","+startY);
-			var topside = paper.path("M"+x+","+y+
-				"A"+r1+","+r2+",0,"+largeArc+",0,"+startX+","+startY+
-				"L"+cx+","+cy+"z");
-			slice.push(topside, side1, side2, side3);
+					   "L"+startX+","+startY+"z");
+				topside = paper.path("M"+x+","+y+
+						"A"+r1+","+r2+",0,"+largeArc+",0,"+startX+","+startY+
+						"L"+cx+","+cy+"z");
+				slice.push(topside, side1, side2, side3);
+				
+			}	
 			topSet.push(topside);
 			topSet.toFront();
 			slice.attr({
 				fill: colors[i],
 				stroke: "#555",
 				opacity: .8
-			});
+			});		
 			all_set.push(slice);
 			preAngle += angle;		
 		}

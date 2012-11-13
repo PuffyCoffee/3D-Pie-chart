@@ -4,7 +4,7 @@
  */
 Raphael.fn.pie = function(args) {	
 	var values = args.values;	
-	var colors = ["#51ff00", "#ff0011", "#faf600", "#0079fa", "#fa8500"];
+	var colors = ["#00ff00", "#ff0011", "#faf600", "#0079fa", "#fa8500"];
 	var tooltips = ["January - 87", "Feburary - 136", "March - 77", "April - 120",
 					"May - 34"];
 	var percentages = [], isDoughnut = true, doughnutSize = 2.5;
@@ -44,10 +44,10 @@ Raphael.fn.pie = function(args) {
 						 (cx-r1/doughnutSize)+","+(cy+17)+
 						 "L"+(cx-r1/doughnutSize)+","+cy+
 						 "A"+r1/doughnutSize+","+r2/doughnutSize+",0,0,1,"+
-						 (cx+r1/doughnutSize)+","+cy+"z").attr({stroke: "#999", fill: colors[0]});
+						 (cx+r1/doughnutSize)+","+cy+"z").attr({stroke: "#111", fill: colors[0],opacity: 1});
 			var arcBot = paper.path("M"+(cx+r1/doughnutSize)+","+(cy+17)+
 						 "A"+r1/doughnutSize+","+r2/doughnutSize+",0,1,1,"+
-						 (cx-r1/doughnutSize)+","+(cy+17)).attr({stroke: "#ccc"});
+						 (cx-r1/doughnutSize)+","+(cy+17)).attr({stroke: "#111", opacity:.2});
 			
 		} else {
 			var e = paper.ellipse(cx, cy, r1, r2).attr({

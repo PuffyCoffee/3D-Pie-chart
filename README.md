@@ -1,4 +1,4 @@
 3D-Pie-chart
 ============
 
-![Doughnut chart](/doughnut.png "Doughnut Chart")
+![Doughnut chart](https://raw.github.com/pengz/3D-Pie-chart/master/doughnut.png "Doughnut Chart")

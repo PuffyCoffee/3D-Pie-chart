@@ -4,10 +4,9 @@
  */
 Raphael.fn.pie = function(args) {	
 	var values = args.values;	
-	var colors = ["#00ff00", "#ff0011", "#faf600", "#0079fa", "#fa8500"];
-	var tooltips = ["January - 87", "Feburary - 136", "March - 77", "April - 120",
-					"May - 34"];
-	var percentages = [], isDoughnut = true, doughnutSize = 2.5;
+	var colors = args.colors;
+	var tooltips = args.tooltip;
+	var percentages = [], isDoughnut = args.doughnut, doughnutSize = 2.5;
 	var sum = 0;
 	for (var i = 0; i < values.length; i += 1)  {
 		sum += values[i];		
@@ -16,10 +15,10 @@ Raphael.fn.pie = function(args) {
 		percentages.push(((values[j]/sum)*100).toFixed(2)+"%");
 	}
 	var paper = this;
-	var r1 = 180, r2 = 150, 
+	var r1 = args.radius, r2 = .8*r1, 
 		cx = paper.width/2, cy = paper.height/2,
 		titleX = cx, titleY = paper.height/13;
-	var title = paper.text(titleX, titleY, "Traffic Flow").attr({
+	var title = paper.text(titleX, titleY, args.chartTitle).attr({
 		'font-size' : 20
 	});
 	var dsize = 20;
@@ -163,26 +162,29 @@ Raphael.fn.pie = function(args) {
 		for (var i = 0; i < values.length; i += 1) {
 			mlist[i] = false;
 		}
-		function showTooltip(index) {				
-			if (ttset[index].x < cx) {			
-				tt.attr({
-					text: tooltips[index] + " (" + percentages[index] + ")",
-					x: ttset[index].x,
-					y: ttset[index].y,
-					'text-anchor': 'end'
-				});
-			} else {
-				tt.attr({
-					text: tooltips[index] + " (" + percentages[index] + ")",
-					x: ttset[index].x,
-					y: ttset[index].y,
-					'text-anchor': 'start'
-				});
+		function showTooltip(index) {			
+			if (typeof tooltips !== 'undefined') {
+				console.log("tooltip");
+				if (ttset[index].x < cx) {			
+					tt.attr({
+						text: tooltips[index] + " (" + percentages[index] + ")",
+						x: ttset[index].x,
+						y: ttset[index].y,
+						'text-anchor': 'end'
+					});
+				} else {
+					tt.attr({
+						text: tooltips[index] + " (" + percentages[index] + ")",
+						x: ttset[index].x,
+						y: ttset[index].y,
+						'text-anchor': 'start'
+					});
+				}
+				moveBox(tt);
+				tbox.attr({stroke: colors[index]});		
+				tt.toFront(), tbox.toFront();
+				tt.show(), tbox.show();
 			}
-			moveBox(tt);
-			tbox.attr({stroke: colors[index]});		
-			tt.toFront(), tbox.toFront();
-			tt.show(), tbox.show();
 		}
 		function hideTooltip() {
 			tt.hide(), tbox.hide();

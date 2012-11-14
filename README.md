@@ -24,7 +24,7 @@ Options
 * radius
 * chartTitle
 
-![Doughnut chart](https://raw.github.com/pengz/3D-Pie-chart/master/doughnut.png "Doughnut Chart")
+![Doughnut chart](https://raw.github.com/pengz/3D-Pie-chart/master/screenshot/doughnut.png "Doughnut Chart")
 
-![Pie chart](https://raw.github.com/pengz/3D-Pie-chart/master/pie.png "Pie Chart")
+![Pie chart](https://raw.github.com/pengz/3D-Pie-chart/master/screenshot/pie.png "Pie Chart")
 

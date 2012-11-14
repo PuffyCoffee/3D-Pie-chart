@@ -1,4 +1,4 @@
-3D-Pie-chart
+3D Pie Chart
 ============
 
 Example

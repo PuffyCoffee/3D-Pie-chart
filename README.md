@@ -1,6 +1,9 @@
 3D Pie Chart
 ============
 
+- Vector-based
+- MIT licence
+
 Example
 -------
 
@@ -28,3 +31,6 @@ Options
 
 ![Pie chart](https://raw.github.com/PuffyCoffee/3D-Pie-chart/master/screenshot/pie.png "Pie Chart")
 
+-------
+
+Peng Zhang 2012

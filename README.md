@@ -7,7 +7,7 @@
 Example
 -------
 
-```
+```javascript
 Raphael('canvas', 700, 500).pie({
 	values: [87, 134, 83, 23, 98],
 	colors: ["#00ff00", "#ff0011", "#faf600", "#0079fa", "#fa8500"],

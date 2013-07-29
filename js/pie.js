@@ -2,7 +2,7 @@
  * 3D Pie chart
  * @author Peng Zhang 2012
  */
-Raphael.fn.pie = function(args) {	
+Raphael.fn.pie = function(args) {
 	var values = args.values;	
 	var colors = args.colors;
 	var tooltips = args.tooltip;
@@ -15,9 +15,48 @@ Raphael.fn.pie = function(args) {
 		percentages.push(((values[j]/sum)*100).toFixed(2)+"%");
 	}
 	var paper = this;
-	var r1 = args.radius, r2 = .8*r1, 
-		cx = paper.width/2, cy = paper.height/2,
-		titleX = cx, titleY = paper.height/13;
+	var r1, r2, cx, cy, titleX, titleY;
+	if (args.legend.display) { //show legend
+		var pie_half_width = paper.width/2,
+			pie_half_height = paper.height,
+			pie_radius = (pie_half_width > pie_half_height) ? 1/3*pie_half_height : 1/3*pie_half_width;
+		r1 = pie_radius; r2 = .8*r1;
+		cx = pie_half_width/2; cy = pie_half_height/2;
+		titleX = cx; titleY = paper.height/13;
+
+		// Draw legend
+		var legend_half_width = paper.width/2,
+			legend_half_height = paper.height;
+		
+		var legend_items = args.legend.items,
+			legend_items_length = legend_items.length,
+			startX = 7/6*legend_half_width, 
+			stepH = legend_half_height/(legend_items_length+2),
+			startY = stepH;
+
+		for (var i = 0; i < legend_items_length; i += 1) {
+			paper.circle(startX, startY+stepH*i, 6).attr({
+				fill: args.colors[i],
+				stroke: "black"
+			});
+			paper.text(startX+20, startY+stepH*i, legend_items[i]).attr({
+				"text-anchor": "start",
+				"font-size": 14
+			});
+		}
+		
+
+
+	} else { // just a single pie chart
+		var pie_half_width = paper.width/2,
+			pie_half_height = paper.height,
+			pie_radius = (pie_half_width > pie_half_height) ? 1/3*pie_half_height : 1/3*pie_half_width;
+		r1 = pie_radius; r2 = .8*r1; 
+		cx = paper.width/2; cy = paper.height/2;
+		titleX = cx; titleY = paper.height/13;
+	}
+
+	
 	var title = paper.text(titleX, titleY, args.chartTitle).attr({
 		'font-size' : 20
 	});
@@ -65,7 +104,7 @@ Raphael.fn.pie = function(args) {
 		var all_set = [];
 		var topSet = paper.set();
 		var angles = [], tset = [], ttset = [];
-		var tt = paper.text(50, 20, "init tooltip").attr({'font-size': 14}),		
+		var tt = paper.text(50, 20, "init tooltip").attr({'font-size': 14}),
 			tbox = paper.rect(0, 0, 10, 10, 5).attr({'stroke-width': 2});
 		function moveBox(tt) {
 			tbox.attr({
@@ -164,8 +203,7 @@ Raphael.fn.pie = function(args) {
 		}
 		function showTooltip(index) {			
 			if (typeof tooltips !== 'undefined') {
-				console.log("tooltip");
-				if (ttset[index].x < cx) {			
+				if (ttset[index].x < cx) {
 					tt.attr({
 						text: tooltips[index] + " (" + percentages[index] + ")",
 						x: ttset[index].x,

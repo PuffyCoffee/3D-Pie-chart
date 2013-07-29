@@ -14,7 +14,11 @@ Raphael('canvas', 700, 500).pie({
 	tooltip: ["January - 87", "Feburary - 136", "March - 77", "April - 120","May - 34"],
 	doughnut: true,
 	radius: 200,
-	chartTitle: "Monthly Payment"
+	chartTitle: "Monthly Payment",
+	legend: {
+		display: true,
+		items: ["January - 87", "Feburary - 136", "March - 77", "April - 120","May - 34"]
+	}
 });
 ```
 
@@ -26,6 +30,8 @@ Options
 * doughnut: pie chart [false] || doughnut chart [true]
 * radius
 * chartTitle
+* legend: display true|false
+		  legend items array
 
 ![Doughnut chart](https://raw.github.com/PuffyCoffee/3D-Pie-chart/master/screenshot/doughnut.png "Doughnut Chart")
 

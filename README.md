@@ -30,7 +30,7 @@ Options
 * tooltip: tooltip for each slice
 * doughnut: pie chart [false] || doughnut chart [true]
 * radius
-* tile: adjust pie/doughnut chart viewing angle, options are __["x", "l", "m", "s"]__ (Extra, Large, Medium, Small)
+* tile: adjust pie/doughnut chart viewing angle, options are __["x", "l", "m", "s"]__ (Extra, Large, Medium, Small), default is "l" large
 * chartTitle
 * legend: display true|false
 		  legend items array

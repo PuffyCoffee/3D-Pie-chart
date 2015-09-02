@@ -14,6 +14,7 @@ Raphael('canvas', 700, 500).pie({
 	tooltip: ["January - 87", "Feburary - 136", "March - 77", "April - 120","May - 34"],
 	doughnut: true,
 	radius: 200,
+	tilt: "l",
 	chartTitle: "Monthly Payment",
 	legend: {
 		display: true,
@@ -29,6 +30,7 @@ Options
 * tooltip: tooltip for each slice
 * doughnut: pie chart [false] || doughnut chart [true]
 * radius
+* tile: adjust pie/doughnut chart viewing angle, options are __["x", "l", "m", "s"]__ (Extra, Large, Medium, Small)
 * chartTitle
 * legend: display true|false
 		  legend items array

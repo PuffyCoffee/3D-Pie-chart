@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pie chart test page</title>
+    <script src="js/raphael-min.js"></script>
+    <script src="js/pie.js"></script>
+</head>
+<body>
+    <div id="wrapper" style="width:300px; height: 300px;"></div>
+
+    <script>
+    Raphael('wrapper', 700, 500).pie({
+        values: [87, 134, 83, 23, 98],
+        colors: ["#00ff00", "#ff0011", "#faf600", "#0079fa", "#fa8500"],
+        tooltip: ["January - 87", "Feburary - 136", "March - 77", "April - 120","May - 34"],
+        doughnut: true,
+        radius: 200,
+        tilt: "l",
+        chartTitle: "Monthly Payment",
+        legend: {
+            display: true,
+            items: ["January - 87", "Feburary - 136", "March - 77", "April - 120","May - 34"]
+        }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "3d-pie-chart",
+  "version": "0.0.1",
+  "description": "Raphael plugin 3d pie chart",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PuffyCoffee/3D-Pie-chart.git"
+  },
+  "keywords": [
+    "raphael",
+    "javascript",
+    "chart",
+    "pie",
+    "donut",
+    "pie chart",
+    "donut chart"
+  ],
+  "author": {
+    "name" : "Peng Zhang",
+    "email" : "nj.pengzhang@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PuffyCoffee/3D-Pie-chart/issues"
+  },
+  "homepage": "https://github.com/PuffyCoffee/3D-Pie-chart#readme"
+}

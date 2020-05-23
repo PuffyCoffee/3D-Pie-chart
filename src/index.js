@@ -1,8 +1,31 @@
-/**
- * 3D Pie chart
- * @author Peng Zhang 2012
- */
+const Raphael = require("raphael");
+
 Raphael.fn.pie = function(args) {
+  function translateTiltAngle(symbol) {
+    var angle = 0.8;
+    if (typeof symbol === "string") {
+      switch (symbol) {
+        case "x":
+          angle = 0.9;
+          break;
+        case "l":
+          angle = 0.8;
+          break;
+        case "m":
+          angle = 0.7;
+          break;
+        case "s":
+          angle = 0.6;
+          break;
+        default:
+          angle = 0.8;
+      }
+    } else {
+      console.log("Please pass a character[x(extra), l(large), m(medium), s(small)]"+
+            " to pie chart to adjust tilt angle.");
+    }
+    return angle;
+  }
 	var values = args.values;
 	var colors = args.colors;
 	var tooltips = args.tooltip;
@@ -202,31 +225,6 @@ Raphael.fn.pie = function(args) {
 		for (var i = 0; i < values.length; i += 1) {
 			mlist[i] = false;
 		}
-		function translateTiltAngle(symbol) {
-			var angle = 0.8;
-			if (typeof symbol === "string") {
-				switch (symbol) {
-					case "x":
-						angle = 0.9;
-						break;
-					case "l":
-						angle = 0.8;
-						break;
-					case "m":
-						angle = 0.7;
-						break;
-					case "s":
-						angle = 0.6;
-						break;
-					default:
-						angle = 0.8;
-				}
-			} else {
-				console.log("Please pass a character[x(extra), l(large), m(medium), s(small)]"+
-							" to pie chart to adjust tilt angle.");
-			}
-			return angle;
-		}
 		function showTooltip(index) {
 			if (typeof tooltips !== 'undefined') {
 				if (ttset[index].x < cx) {
@@ -279,3 +277,5 @@ Raphael.fn.pie = function(args) {
 		});
 	}
 };
+
+window.Raphael = Raphael;

@@ -2,23 +2,22 @@
 <html>
 <head>
     <title>3D Pie Chart</title>
-    <script src="dist/3d-pie.js"></script>
 </head>
 <body>
     <div id="wrapper" style="width:300px; height: 300px;"></div>
 
     <script>
-    Raphael('wrapper', 700, 500).pie({
+    Raphael('wrapper', 1400, 1000).pie({
         values: [87, 134, 83, 23, 98],
         colors: ["#00ff00", "#ff0011", "#faf600", "#0079fa", "#fa8500"],
-        tooltip: ["January - 87", "Feburary - 136", "March - 77", "April - 120","May - 34"],
+        tooltip: ["January - 87", "Feburary - 134", "March - 83", "April - 23","May - 98"],
         doughnut: true,
         radius: 200,
         tilt: "l",
         chartTitle: "Monthly Payment",
         legend: {
             display: true,
-            items: ["January - 87", "Feburary - 136", "March - 77", "April - 120","May - 34"]
+            items: ["January - 87", "Feburary - 134", "March - 83", "April - 23","May - 98"]
         }
     });
     </script>

@@ -27,22 +27,22 @@ Build first, then use generated dist/3d-pie.bundle.js file in your html
 ### Example
 ```
 pieChart({
-		containerId: "wrapper", // container div id
-		title: "Test title",
-		data: [
-				{
-						value: 45,
-						color: "#00ff00"
-				},
-				{
-						value: 49,
-						color: "#ff0011"
-				},
-				{
-						value: 40,
-						color: "#0079fa"
-				}
-		],
-		isDoughnut: true
+	containerId: "wrapper", // container div id
+	title: "Test title",
+	data: [
+		{
+			value: 45,
+			color: "#00ff00"
+		},
+		{
+			value: 49,
+			color: "#ff0011"
+		},
+		{
+			value: 40,
+			color: "#0079fa"
+		}
+	],
+	isDoughnut: true
 });
 ```

@@ -19,7 +19,7 @@ export const pie = (config, instance) => {
 	}
 
 	// var tooltips = args.tooltip;
-	var percentages = [], doughnutSize = 1.5;
+	var percentages = [], doughnutSize = 1.5; //doughnut hole
 	var sum = 0;
 	for (var i = 0; i < values.length; i += 1)  {
 		sum += values[i];
@@ -33,11 +33,22 @@ export const pie = (config, instance) => {
 		pie_height = paper.height,
 		pie_radius = (pie_width > pie_height) ? .4*pie_height : .4*pie_width;
 
-	r1 = pie_radius; r2 = .8*r1;
+	r1 = pie_radius; r2 = .9*r1;
 	cx = paper.width/2; cy = paper.height/2;
 
 	var dsize = 15 * ( pie_width / 1000 )	; //thickness
 	var nos = values.length;
+
+	var calculatedTitleYOffset = r2/3;
+	var titleFontSize = 20 * (pie_width / 400);
+	var titleBox = paper.text(10, 10, title).attr({
+		x: cx,
+		y: cy - calculatedTitleYOffset,
+		'font-size': titleFontSize,
+		'font-weight': 'bold',
+		opacity: 0.8
+	});
+
 	if (nos == 1) {
 		if (isDoughnut) {
 			var e_ = paper.ellipse(cx, cy+17, r1, r2).attr({
@@ -80,17 +91,7 @@ export const pie = (config, instance) => {
 		var all_set = [];
 		var topSet = paper.set();
 		var angles = [], tset = [], ttset = [];
-		var tt = paper.text(50, 20, "init tooltip").attr({'font-size': 14}),
-			tbox = paper.rect(0, 0, 10, 10, 5).attr({'stroke-width': 2});
-		function moveBox(tt) {
-			tbox.attr({
-				x : tt.getBBox().x - 10,
-				y : tt.getBBox().y - 5,
-				width : tt.getBBox().width + 20,
-				height : tt.getBBox().height + 10
-			});
-		}
-		tt.hide(), tbox.hide();
+
 		for (var i = 0; i < nos; i += 1) {
 			var slice = paper.set();
 			var startX = x, startY = y;

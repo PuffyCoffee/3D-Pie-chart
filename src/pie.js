@@ -1,6 +1,6 @@
 export const pie = (config, instance) => {
 	const {title, data, isDoughnut} = config;
-	let values = [], colors = [];
+	let values = [], colors = [], labels = [];
 
 	if (!data || !Array.isArray(data)) {
 		console.error("data is required, see doc for more details");
@@ -16,6 +16,7 @@ export const pie = (config, instance) => {
 
 		values.push(value);
 		colors.push(color);
+		labels.push(label);
 	}
 
 	// var tooltips = args.tooltip;
@@ -178,6 +179,25 @@ export const pie = (config, instance) => {
 		for (var i = 0; i < values.length; i += 1) {
 			mlist[i] = false;
 		}
+
+		var labelBox = paper.text(0, 0, '').attr({
+			x: cx,
+			y: cy,
+			'font-size': titleFontSize * .8,
+			'font-weight': 'normal',
+			opacity: 0.8,
+			stroke: 'blue',
+		});
+
+		function showLabel(index) {
+			labelBox.attr({
+				text: labels[index],
+				fill: colors[index],
+				stroke: colors[index]
+			});
+			labelBox.show();
+		}
+
 		topSet.forEach(function(shape, i) {
 			shape.hover(function() {
 				shape.node.style.cursor = "pointer";
@@ -187,7 +207,7 @@ export const pie = (config, instance) => {
 				smx *= shape.paper.width / 800;
 				smy *= shape.paper.height / 800;
 
-				// debugger;
+				showLabel(i);
 
 				all_set[i].animate({
 					transform: "t"+smx+","+smy
@@ -200,6 +220,7 @@ export const pie = (config, instance) => {
 					}, 2000);
 				}
 			}, function() {
+				labelBox.hide();
 				all_set[i].animate({
 					transform: "t0,0"
 				}, 300);

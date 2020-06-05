@@ -1,44 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>3D Pie Chart</title>
-  <script src="3d-pie.js"></script>
-</head>
+    <title>3D Pie Chart</title>
+<script src="3d-pie.bundle.js"></script></head>
 <body>
-  <h1>Raphael 3D Pie Chart</h1>
-  <div>
-    <h3>Dounut chart with legend and title</h3>
-    <div id="dounut" style="width:700px; height: 500px; margin: 0 auto;"></div>
-    <h3>Pie chart only</h3>
-    <div id="pie" style="width:700px; height: 500px; margin: 0 auto;"></div>
-  </div>
+    <div id="wrapper" style="width:800px; height: 800px;"></div>
 
-  <script>
-  Raphael('dounut', 700, 500).pie({
-    values: [87, 134, 83, 23, 98],
-    colors: ["#00ff00", "#ff0011", "#faf600", "#0079fa", "#fa8500"],
-    tooltip: ["January - 87", "Feburary - 136", "March - 77", "April - 120","May - 34"],
-    doughnut: true,
-    radius: 200,
-    tilt: "l",
-    chartTitle: "Monthly Payment",
-    legend: {
-      display: true,
-      items: ["January - 87", "Feburary - 136", "March - 77", "April - 120","May - 34"]
-    }
-  });
-  Raphael('pie', 700, 500).pie({
-    values: [1, 2, 3],
-    colors: ["red", "yellow", "blue"],
-    tooltip: ["1", "2", "3"],
-    doughnut: false,
-    radius: 200,
-    tilt: "l",
-    chartTitle: "",
-    legend: {
-      display: false
-    }
-  });
-  </script>
+    <script>
+    pieChart({
+      containerId: "wrapper",
+      title: "Expenses",
+      data: [
+        {
+          value: 45,
+          color: "#00ff00",
+          label: "January - 45"
+        },
+        {
+          value: 49,
+          color: "#ff0011",
+          label: "February - 49"
+        },
+        {
+          value: 40,
+          color: "#0079fa",
+          label: "March - 40"
+        }
+      ],
+      isDoughnut: true
+    });
+    </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 {
   "name": "3d-pie-chart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Raphael plugin 3d pie chart",
   "main": "index.js",
   "scripts": {

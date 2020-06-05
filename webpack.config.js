@@ -8,6 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '3d-pie.bundle.js',
+    libraryTarget: 'window'
   },
   devtool: 'inline-source-map',
   plugins: [

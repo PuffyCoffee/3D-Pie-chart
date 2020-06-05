@@ -45,7 +45,6 @@ pieChart({
 			color: "#0079fa",
 			label: "March - 40"
 		}
-	],
-	isDoughnut: true
+	]
 });
 ```

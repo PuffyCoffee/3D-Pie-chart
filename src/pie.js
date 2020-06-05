@@ -1,5 +1,6 @@
 export const pie = (config, instance) => {
-	const {title, data, isDoughnut} = config;
+	const {title, data} = config;
+	const isDoughnut = true;
 	let values = [], colors = [], labels = [];
 
 	if (!data || !Array.isArray(data)) {

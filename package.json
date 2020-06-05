@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/PuffyCoffee/3D-Pie-chart/issues"
   },
-  "homepage": "https://github.com/PuffyCoffee/3D-Pie-chart#readme",
+  "homepage": "https://puffycoffee.github.io/3D-Pie-chart/",
   "dependencies": {
     "raphael": "^2.3.0"
   },
